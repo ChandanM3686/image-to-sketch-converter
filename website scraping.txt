@@ -1,0 +1,37 @@
+#step1 get the html
+#step2 parse the html
+#step3 html tree traversal
+
+
+import requests
+from bs4 import BeautifulSoup
+import csv
+
+url = "https://www.amazon.in/s?k=bags&crid=2M096C61O4MLT&qid=1653308124&sprefix=ba%2Caps%2C283&ref=sr_pg_1"
+HEADERS = {'User-Agent':'Mozilla/5.0 (Windows NT 6.3;Win64; x64)AppleWebkit/537.36(KHTML,like Gecko) Chrome/54.0.2840.71 Safari/537.36'}
+r = requests.get(url,headers=HEADERS)
+page= requests.get(url)
+soup = BeautifulSoup(page.content,"html.parser")
+ 
+product_list = soup.find_all("div",class_="s-result-item")
+
+for product in product_list:
+ product_url = product.find("a",class_="a-link-normal")
+ product_name = product.find("h2")
+ product_price = product.find("span",class_="a-price-whole")
+ product_rating = product.find("span",class_="a-icon-alt")
+ product_reviews = product.find("span",class_="a-size-base")
+
+ print("Product URL:",product_url)
+ print("Product Name:",product_name)
+ print("Product Price:",product_price)
+ print("Rating:",product_rating)
+ print("Number of reviews:",product_rating)
+ print("\n")
+
+
+
+
+
+
+
